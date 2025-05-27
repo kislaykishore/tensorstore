@@ -453,7 +453,7 @@ Result<MemoryRegion> MemmapFileReadOnly(FileDescriptor fd, size_t offset,
     return std::move(tspan).EndWithStatus(
         StatusFromOsError(errno, "Failed to mmap"));
   }
-  ::madvise(address, size, MADV_WILLNEED);
+  ::madvise(address, size, MADV_WILLNEED|MADV_HUGEPAGE);
 
   mmap_count.Increment();
   mmap_bytes.IncrementBy(size);
