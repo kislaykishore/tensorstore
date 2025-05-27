@@ -448,7 +448,7 @@ Result<MemoryRegion> MemmapFileReadOnly(FileDescriptor fd, size_t offset,
     }
   }
 
-  void* address = ::mmap(nullptr, size, PROT_READ, MAP_PRIVATE, fd, offset);
+  void* address = ::mmap(nullptr, size, PROT_READ, MAP_PRIVATE|MAP_HUGETLB, fd, offset);
   if (address == MAP_FAILED) {
     return std::move(tspan).EndWithStatus(
         StatusFromOsError(errno, "Failed to mmap"));
